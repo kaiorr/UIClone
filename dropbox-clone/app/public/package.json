@@ -1,0 +1,23 @@
+{
+  "name": "dropbox-clone",
+  "version": "1.0.0",
+  "description": "Dropbox clone para fins de estudo tanto de interface, quanto javascript",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaiorr/UIClone/dropbox-clone.git"
+  },
+  "author": "Hcode Treinamentos",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kaiorr/UIClone/dropbox-clone.git/issues"
+  },
+  "homepage": "https://github.com/kaiorr/UIClone/dropbox-clone.git#readme",
+  "dependencies": {
+    "bootstrap": "^4.1.0",
+    "ionicons": "^2.0.1"
+  }
+}
