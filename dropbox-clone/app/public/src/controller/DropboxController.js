@@ -1,11 +1,8 @@
-const doc = (el) => document.querySelector(el)
-const docAll = (el) => document.querySelectorAll(el)
-
 class DropboxController {
   constructor() {
-    this.btnSendFileEl = doc('#btn-send-file')
-    this.inputFileEl = doc('#files')
-    this.snackModalEl = doc('#react-snackbar-root')
+    this.btnSendFileEl = document.querySelector('#btn-send-file')
+    this.inputFileEl = document.querySelector('#files')
+    this.snackModalEl = document.querySelector('#react-snackbar-root')
     this.progressBarEl = this.snackModalEl.querySelector('.mc-progress-bar-fg')
     this.nameFileEl = this.snackModalEl.querySelector('.filename')
     this.timeLeftEl = this.snackModalEl.querySelector('.timeleft')
@@ -22,33 +19,14 @@ class DropboxController {
 
       this.uploadTask(event.target.files)
 
-      this.snackModalEl.style.display = 'block'
+      this.modalShow()
+
+      this.inputFileEl.value = '';
     })
   }
 
-  ajax(url, method = 'GET', formData = new FormData(), onprogress = function(){}, onloadstart = function(){}){
-    return new Promise((resolve,reject)=>{
-      let ajax = new XMLHttpRequest()
-      ajax.open(method, url);
-
-      ajax.onload = event=>{
-        try{
-          resolve(JSON.parse(ajax.responseText));
-        }catch(e){
-          reject(e);
-        }
-      }
-      ajax.onerror = event=>{
-        reject(event);
-      }
-      // MOSTRA PROGRESSO DO UPLOAD
-      ajax.upload.onprogress = onprogress();
-
-      onloadstart();
-
-      ajax.send(formData);
-    });
-
+  modalShow(show = true) {
+    this.snackModalEl.style.display = (show) ? 'block' : 'none'
   }
 
   uploadTask(files){
@@ -57,53 +35,77 @@ class DropboxController {
 
     [...files].forEach(file => {
 
-      let formData = new FormData();
+      promises.push(new Promise((resolve, reject) => {
 
-      formData.append('input-file', file);
+        const ajax = new XMLHttpRequest();
 
-      promises.push(this.ajax('/upload','POST', formData,
-        ()=>{
-          this.uploadProgress(event, file);
-        },
-        ()=>{
-          this.startUploadTime = Date.now();
-        }));
-      });
+        ajax.open('POST', '/upload')
+
+        ajax.onload = event => {
+
+          this.modalShow(false)
+
+          try {
+            resolve(JSON.parse(ajax.responseText))
+          } catch (err) {
+            reject(err)
+          }
+        }
+
+        ajax.onerror = event => {
+
+          this.modalShow(false)
+
+          reject(err)
+        }
+
+        ajax.upload.onprogress = event => {
+          this.uploadProgress(event, file)
+        }
+
+        const formDate = new FormData()
+
+        formDate.append('input-file', file)
+
+        this.startUploadTime = Date.now()
+
+        ajax.send(formDate)
+
+      }))
+    });
 
     return Promise.all(promises)
   }
 
   uploadProgress(event, file){
-    let timePent = Date.now() - this.startUploadTime;
-    let loaded = event.loaded;
-    let total = event.total;
+    let timePent = Date.now() - this.startUploadTime
+    let loaded = event.loaded
+    let total = event.total
 
-    let percentage = ((loaded / total) * 100);
-    let timeLeft =(100 - percentage) * timePent / percentage;
+    let percentage = ((loaded / total) * 100)
+    let timeLeft = parseInt((100 - percentage) * timePent / percentage)
 
-    console.log(timePent)
-
-    this.progressBarEl.style.width = `${percentage}%`;
-    this.nameFileEl.innerHTML = file.name;
-    this.timeLeftEl.innerHTML = this.formatTimeUploadProgress(timeLeft);
+    this.progressBarEl.style.width = `${percentage}%`
+    this.nameFileEl.innerHTML = file.name
+    this.timeLeftEl.innerHTML = this.formatTimeUploadProgress(timeLeft)
   }
 
-  formatTimeUploadProgress(duration){
-    let seconds = parseInt((duration/1000) % 60);
-    let minutes= parseInt((duration / (1000*60)) % 60);
-    let hours = parseInt((duration / (1000* 60 * 60)) % 24);
+    formatTimeUploadProgress(duration){
+    let seconds = parseInt((duration/1000) % 60)
+    let minutes= parseInt((duration / (1000*60)) % 60)
+    let hours = parseInt((duration / (1000* 60 * 60)) % 24)
 
     if(hours > 0) {
-      return `${hours} horas, ${minutes} minutos e ${seconds} segundos`;
+      return `${hours} horas, ${minutes} minutos e ${seconds} segundos`
     }
     if(minutes > 0) {
-      return `${minutes} minutos e ${seconds} segundos`;
+      return `${minutes} minutos e ${seconds} segundos`
     }
     if(seconds > 0) {
-      return `${seconds} segundos`;
+      return `${seconds} segundos`
     }
     else{
-      return 'aguarde...'
+      return 'finalizado'
     }
 
   }
