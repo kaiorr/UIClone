@@ -12,7 +12,6 @@ class DropboxController {
   }
 
   connectFirebase () {
-      // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   var firebaseConfig = {
     apiKey: "AIzaSyCNR0xPB4jGiMscUoMgroajtuX6EitKc-Q",
@@ -36,12 +35,26 @@ class DropboxController {
 
     this.inputFileEl.addEventListener('change', event => {
 
-      this.uploadTask(event.target.files)
+      this.uploadTask(event.target.files).then(responses => {
+
+        responses.forEach(response => {
+
+          console.log(response.files['input-file'])
+
+          this.getFirebaseRef().push().set(response.files['input-file'])
+
+        })
+        this.modalShow(false)
+      })
 
       this.modalShow()
 
       this.inputFileEl.value = '';
     })
+  }
+
+  getFirebaseRef() {
+    return firebase.database().ref('files')
   }
 
   modalShow(show = true) {
@@ -62,8 +75,6 @@ class DropboxController {
 
         ajax.onload = event => {
 
-          this.modalShow(false)
-
           try {
             resolve(JSON.parse(ajax.responseText))
           } catch (err) {
@@ -72,9 +83,6 @@ class DropboxController {
         }
 
         ajax.onerror = event => {
-
-          this.modalShow(false)
-
           reject(err)
         }
 
