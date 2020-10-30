@@ -6,9 +6,11 @@ class DropboxController {
     this.progressBarEl = this.snackModalEl.querySelector('.mc-progress-bar-fg')
     this.nameFileEl = this.snackModalEl.querySelector('.filename')
     this.timeLeftEl = this.snackModalEl.querySelector('.timeleft')
+    this.listDirectoryEl = document.querySelector('#list-of-files-and-directories')
 
     this.connectFirebase()
     this.initEvents()
+    this.readFiles()
   }
 
   connectFirebase () {
@@ -35,22 +37,40 @@ class DropboxController {
 
     this.inputFileEl.addEventListener('change', event => {
 
+      this.btnSendFileEl.disabled = true
+
       this.uploadTask(event.target.files).then(responses => {
 
         responses.forEach(response => {
+          const newTrickConfigFirebaseOnHTML = 'https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js'
 
-          console.log(response.files['input-file'])
+          console.log(`Foi necessário informar na linha 220 HTML, ${newTrickConfigFirebaseOnHTML}`)
 
           this.getFirebaseRef().push().set(response.files['input-file'])
 
         })
-        this.modalShow(false)
+        this.uploadComplete()
+
+      }).catch(err => {
+        this.uploadComplete()
+          console.log(err)
       })
 
       this.modalShow()
 
-      this.inputFileEl.value = '';
+
     })
+  }
+
+  uploadComplete() {
+
+    this.modalShow(false)
+
+    this.inputFileEl.value = '';
+
+    this.btnSendFileEl.disabled = true
+
+
   }
 
   getFirebaseRef() {
@@ -137,7 +157,7 @@ class DropboxController {
 
   }
 
-  getFileIcon(file) {
+  getFileIconView(file) {
     switch (file.type) {
       case 'folder':
         return `
@@ -303,12 +323,34 @@ class DropboxController {
   }
 
 
-  getFileView(file) {
-    return `
-      <li>
-        ${this.getFileIconView(file)}
-          <div class="name text-center">${file.name}/div>
-      </li>
-    `
+  getFileView(file, key) {
+    let li = document.createElement('li')
+
+      li.dataset.key = key
+
+      li.innerHTML = ` <li>
+                        ${this.getFileIconView(file)}
+                          <div class="name text-center">${file.name}</div>
+                      </li>
+                    `
+      return li
   }
+
+  readFiles() {
+
+    this.getFirebaseRef().on('value', snapshot => {
+
+      this.listDirectoryEl.innerHTML = ''
+
+      snapshot.forEach(snapshotItem => {
+        const key = snapshotItem.key
+        const data = snapshotItem.val()
+
+        this.listDirectoryEl.appendChild(this.getFileView(data, key))
+      })
+
+    })
+
+  }
+
 }
