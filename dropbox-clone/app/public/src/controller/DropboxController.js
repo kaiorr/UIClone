@@ -44,7 +44,7 @@ class DropboxController {
         responses.forEach(response => {
           const newTrickConfigFirebaseOnHTML = 'https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js'
 
-          console.log(`Foi necessário informar na linha 220 HTML, ${newTrickConfigFirebaseOnHTML}`)
+          console.log(`New trick firebase, ${newTrickConfigFirebaseOnHTML}`)
 
           this.getFirebaseRef().push().set(response.files['input-file'])
 
@@ -333,6 +333,8 @@ class DropboxController {
                           <div class="name text-center">${file.name}</div>
                       </li>
                     `
+        this.initEventClickElementList(li)
+
       return li
   }
 
@@ -351,6 +353,47 @@ class DropboxController {
 
     })
 
+  }
+
+  initEventClickElementList(li) {
+
+    li.addEventListener('click', e => {
+
+      if (e.shiftKey) {
+        const firstLi = this.listDirectoryEl.querySelector('.selected')
+
+          if (firstLi) {
+
+            const indexStart
+            const indexEnd
+            const ArrayClassElementLi = li.parentElement.childNodes
+
+            li.parentElement.childNodes.forEach((el, index) =>{
+
+              if (firstLi === el) indexStart = index
+
+              if (li === el) indexEnd = index
+
+            })
+
+            let index = [indexStart, indexEnd].sort()
+
+            ArrayClassElementLi.forEach((el, indexOrdenation) => {
+              if(indexOrdenation => index[0] &&  indexOrdenation <= index[1]) {
+                el.classList.add('selected')
+              }
+            })
+
+            return true
+          }
+      }
+
+      if (!e.ctrlKey) {
+        this.listDirectoryEl.querySelectorAll('li.selected').forEach(el => {
+          el.classList.remove('selected')
+        })
+      }
+    })
   }
 
 }

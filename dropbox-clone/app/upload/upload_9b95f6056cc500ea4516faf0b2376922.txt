@@ -1,0 +1,65 @@
+﻿EVA (10/22/2020, 8:11:14 AM): Oi, eu sou a Eva, assistente virtual da Empiricus!
+
+Estou aqui para tirar suas dúvidas. 
+EVA (10/22/2020, 8:11:15 AM): Ah, você pode fazer o download da nossa conversa a qualquer momento, clicando no ícone ao lado esquerdo do chat, em Salvar Transcrição. 
+EVA (10/22/2020, 8:11:16 AM): RICH_TEXT: Ou se preferir, podemos enviar uma cópia desse atendimento em seu e-mail, deseja receber em seu e-mail? <b>Digite o número abaixo</b>:
+
+<b>1</b> - Sim
+<b>2</b> - Não 
+EVA (10/22/2020, 8:11:17 AM): 🤔 
+null (10/22/2020, 8:11:33 AM): 1 
+EVA (10/22/2020, 8:11:36 AM): Antes de começar nosso bate-papo, chamei o Vinicius Bazan para te mostrar um pouquinho do Aplicativo da Empiricus 
+EVA (10/22/2020, 8:11:37 AM): YOUTUBE:V78IDBYdbyo 
+EVA (10/22/2020, 8:11:38 AM): 👇
+
+Se você curtiu é só acessar o link abaixo e fazer o download 
+EVA (10/22/2020, 8:11:39 AM): URL:  https://www.empiricus.com.br/aplicativo/ 
+EVA (10/22/2020, 8:11:40 AM): 📲📲📲
+
+
+ 
+👋 Olá Kaio, em que posso ajudar?
+Tente utilizar palavras chave como Assinar, Dúvidas, Renovar e etc 
+null (10/22/2020, 8:11:54 AM): Cancelar 
+EVA (10/22/2020, 8:11:58 AM): Pelo que entendi, você quer falar sobre cancelamento de conteúdos...acertei não foi? 😎 
+EVA (10/22/2020, 8:11:59 AM): Então eu posso te ajudar de duas formas:
+
+Com as assinaturas contratadas no APP da Empiricus ou com as assinaturas, boletins ou cursos contratados de forma convencional 
+EVA (10/22/2020, 8:12:00 AM): RICH_TEXT: 👉 Para falar sobre assinaturas do <b>APP</b>, digite <b>1</b>
+👉 E para falar sobre <b>assinaturas, boletins ou cursos</b>, digite <b>2</b> 
+EVA (10/22/2020, 8:12:01 AM): Digite apenas o número correspondente a opção 😉 
+null (10/22/2020, 8:12:22 AM): 2 
+EVA (10/22/2020, 8:12:25 AM): RICH_TEXT: Sua solicitação é sobre uma <b>assinatura contratada</b> dentro de 7 dias ou uma <b>assinatura renovada</b>? 
+EVA (10/22/2020, 8:12:27 AM): RICH_TEXT: Digite <b>1</b> para contratada e <b>2</b> para renovada 
+EVA (10/22/2020, 8:12:28 AM): 🤔 
+null (10/22/2020, 8:12:42 AM): 2 
+EVA (10/22/2020, 8:12:45 AM): RICH_TEXT: Para cancelar a assinatura renovada, primeiro preciso saber há quanto tempo foi renovada
+
+Digite <b>1</b> se foi renovada dentro dos últimos 7 dias ou digite <b>2</b> se já faz mais de 7 dias da renovação 
+EVA (10/22/2020, 8:12:47 AM): 🧐 
+null (10/22/2020, 8:13:02 AM): 2 
+EVA (10/22/2020, 8:13:05 AM): Então vou mostrar algumas opções do que fazer 👇 
+EVA (10/22/2020, 8:13:07 AM): IMAGE: https://s3.amazonaws.com/empiricusimagens/2020/06/RenovacaoForaPrazo.jpg 
+EVA (10/22/2020, 8:13:08 AM): RICH_TEXT: Se alguma opção 👆 acima te interessou ou se você quer <u>conhecer outras opções</u>, digite <b>1</b> ou <b>2</b> para encerrar nosso bate-papo
+
+<b>1</b> - Sim
+<b>2</b> - Não 
+EVA (10/22/2020, 8:13:09 AM): 😎 
+null (10/22/2020, 8:15:55 AM): 1 
+EVA (10/22/2020, 8:15:58 AM): Este atendimento gerou um número de protocolo:  04958818 
+EVA (10/22/2020, 8:15:59 AM): Aguarde um momento, um de nossos Especialistas seguirá com seu atendimento 🤓 
+Miguel A (10/22/2020, 8:16:03 AM): Olá, tudo bem? Eu sou Miguel e vou te ajudar 😃
+
+🔎 Enquanto leio o histórico, me conte com mais detalhe como posso ajudar? 
+null (10/22/2020, 8:16:20 AM): Bom Dia! 
+null (10/22/2020, 8:16:31 AM): Quero somente fazer o cancelamento de minhas assinaturas 
+Miguel A (10/22/2020, 8:18:05 AM): Kaio, vi que a sua série vencerá no próximo dia 28/10, conforme a sua solicitação em Julho a série já está com a renovação inativada, então, ao chegar a essa data a série será cancelada automaticamente, sem gerar novos custos para você. 
+null (10/22/2020, 8:18:49 AM): As duas já serão inativadas ? 
+Miguel A (10/22/2020, 8:19:26 AM): Uma já venceu no dia 20/10 e já está inativada, agora só tem a Crypto Legacy ativa, que ficará até a próxima semana. 
+null (10/22/2020, 8:19:49 AM): entendi 
+null (10/22/2020, 8:19:56 AM): nesse caso era somente isso mesmo 
+Miguel A (10/22/2020, 8:20:04 AM): Espero que tenha gostado dessa experiência em utilizar nossa Assistente Virtual, e também em falar comigo.
+
+Agradecemos imensamente pelo seu contato.
+
+Tenha uma excelente semana! 🙌 
