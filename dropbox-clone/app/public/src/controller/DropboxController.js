@@ -1,12 +1,19 @@
 class DropboxController {
   constructor() {
+
+    this.onselectionchange = new Event('selectionchange')
+
     this.btnSendFileEl = document.querySelector('#btn-send-file')
     this.inputFileEl = document.querySelector('#files')
     this.snackModalEl = document.querySelector('#react-snackbar-root')
     this.progressBarEl = this.snackModalEl.querySelector('.mc-progress-bar-fg')
     this.nameFileEl = this.snackModalEl.querySelector('.filename')
     this.timeLeftEl = this.snackModalEl.querySelector('.timeleft')
-    this.listDirectoryEl = document.querySelector('#list-of-files-and-directories')
+    this.listFilesEl = document.querySelector('#list-of-files-and-directories')
+
+    this.btnNewfolder = document.querySelector('#btn-new-folder')
+    this.btnRename = document.querySelector('#btn-rename')
+    this.btnDelete = document.querySelector('#btn-delete')
 
     this.connectFirebase()
     this.initEvents()
@@ -30,7 +37,42 @@ class DropboxController {
   firebase.analytics();
   }
 
+  getSelection() {
+
+    return this.listFilesEl.querySelectorAll('.selected')
+
+  }
+
   initEvents(){
+
+    this.btnRename.addEventListener('click', e => {
+      const li = this.getSelection()[0];
+    })
+
+    this.listFilesEl.addEventListener('selectionchange', e => {
+
+      switch (this.getSelection().length) {
+
+        case 0:
+          this.btnDelete.style.display = 'none';
+          this.btnRename.style.display = 'none';
+
+        break
+
+        case 1:
+          this.btnDelete.style.display = 'block';
+          this.btnRename.style.display = 'block';
+
+        break
+
+        default:
+          this.btnDelete.style.display = 'block';
+          this.btnRename.style.display = 'none';
+
+      }
+
+    })
+
     this.btnSendFileEl.addEventListener('click', event => {
       this.inputFileEl.click()
     })
@@ -342,13 +384,13 @@ class DropboxController {
 
     this.getFirebaseRef().on('value', snapshot => {
 
-      this.listDirectoryEl.innerHTML = ''
+      this.listFilesEl.innerHTML = ''
 
       snapshot.forEach(snapshotItem => {
         const key = snapshotItem.key
         const data = snapshotItem.val()
 
-        this.listDirectoryEl.appendChild(this.getFileView(data, key))
+        this.listFilesEl.appendChild(this.getFileView(data, key))
       })
 
     })
@@ -360,39 +402,52 @@ class DropboxController {
     li.addEventListener('click', e => {
 
       if (e.shiftKey) {
-        const firstLi = this.listDirectoryEl.querySelector('.selected')
 
-          if (firstLi) {
+        let firstLi = this.listFilesEl.querySelector('li.selected')
 
-            const indexStart
-            const indexEnd
-            const ArrayClassElementLi = li.parentElement.childNodes
+        if (firstLi) {
 
-            li.parentElement.childNodes.forEach((el, index) =>{
+          let indexStart;
+          let indexEnd;
+          let listClassElement = li.parentElement.childNodes;
 
-              if (firstLi === el) indexStart = index
+          listClassElement.forEach((el, index) => {
 
-              if (li === el) indexEnd = index
+              if (firstLi === el) indexStart = index;
+              if (li === el) indexEnd = index;
 
-            })
+          });
 
-            let index = [indexStart, indexEnd].sort()
+          let index = [indexStart, indexEnd].sort();
 
-            ArrayClassElementLi.forEach((el, indexOrdenation) => {
-              if(indexOrdenation => index[0] &&  indexOrdenation <= index[1]) {
-                el.classList.add('selected')
+          listClassElement.forEach((el, i) => {
+
+              if (i >= index[0] && i <= index[1]) {
+                el.classList.add('selected');
               }
-            })
 
-            return true
-          }
+          });
+
+          this.listFilesEl.dispatchEvent(this.onselectionchange)
+
+          return true;
+
       }
+    }
 
       if (!e.ctrlKey) {
-        this.listDirectoryEl.querySelectorAll('li.selected').forEach(el => {
+
+        this.listFilesEl.querySelectorAll('li.selected').forEach(el => {
+
           el.classList.remove('selected')
+
         })
       }
+
+      li.classList.toggle('selected');
+
+      this.listFilesEl.dispatchEvent(this.onselectionchange)
+
     })
   }
 
