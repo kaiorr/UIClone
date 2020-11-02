@@ -1,5 +1,6 @@
 import { Container, VStack } from '@chakra-ui/core'
 import React, { useEffect, useState } from 'react'
+import Navbar from './components/Navbar'
 import Post from './components/Posts'
 import db from './database/firebase'
 
@@ -21,8 +22,27 @@ const App = () => {
       });
   }, []);
 
+  useEffect(() =>{
+
+    db.collection('posts')
+    .orderBy('createdAt', 'desc')
+    .onSnapshot((querySnapshot)=> {
+      const _posts = []
+
+      querySnapshot.forEach((doc) => {
+        _posts.push({
+          id: doc.id,
+          ...doc.data(),
+        })
+      })
+
+      setPosts(_posts)
+    })
+  }, [])
+
   return (
     <>
+      <Navbar />
       <Container maxW="md" centerContent p={8}>
         <VStack spacing={8} w="100%">
           {posts.map((post) => (
