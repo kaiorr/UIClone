@@ -8,31 +8,36 @@ const VoteButtons = ({ post }) => {
   const [votedPosts, setVotedPosts] = useState([]);
 
   useEffect(() => {
-    const votesFromLocalStorage = localStorage.getItem('votes') || []
-    let previousVotes = []
+    // Fetch the previously voted items from localStorage. See https://stackoverflow.com/a/52607524/1928724
+    const votesFromLocalStorage = localStorage.getItem("votes") || [];
+    let previousVotes = [];
 
     try {
-      previousVotes = JSON.parse(votesFromLocalStorage)
+      // Parse the value of the item from localStorage. If the value of the
+      // items isn't an array, then JS will throw an error.
+      previousVotes = JSON.parse(votesFromLocalStorage);
     } catch (error) {
-      console.log(error)
+      console.error(error);
     }
 
-    setVotedPosts(previousVotes)
-
-  }, [])
+    setVotedPosts(previousVotes);
+  }, []);
 
   const handleDisablingOfVoting = (postId) => {
-    const previousVotes = votedPosts
-    previousVotes.push(postId)
 
-    setVotedPosts(previousVotes)
+    const previousVotes = votedPosts;
+    previousVotes.push(postId);
 
-    localStorage.setItem('votes', JSON.stringify(votedPosts))
-  }
+    setVotedPosts(previousVotes);
+
+    // Update the voted items from localStorage. See https://stackoverflow.com/a/52607524/1928724
+    localStorage.setItem("votes", JSON.stringify(votedPosts));
+  };
 
   const handleClick = async (type) => {
-    setVoting(true)
+    setVoting(true);
 
+    // Do calculation to save the vote.
     let upVotesCount = post.upVotesCount;
     let downVotesCount = post.downVotesCount;
 
@@ -52,18 +57,19 @@ const VoteButtons = ({ post }) => {
       updatedAt: date.toUTCString(),
     });
 
-    handleDisablingOfVoting(post.id)
+    // Disable the voting button once the voting is successful.
+    handleDisablingOfVoting(post.id);
 
-    setVoting(false)
+    setVoting(false);
   };
 
   const checkIfPostIsAlreadyVoted = () => {
     if (votedPosts.indexOf(post.id) > -1) {
-      return true
+      return true;
     } else {
-      return false
+      return false;
     }
-  }
+  };
 
   return (
     <>
@@ -89,7 +95,7 @@ const VoteButtons = ({ post }) => {
           icon={<FiArrowDown />}
           onClick={() => handleClick("downvote")}
           isLoading={isVoting}
-          isDisabled={checkIfPostIsAlreadyVoted}
+          isDisabled={checkIfPostIsAlreadyVoted()}
         />
         <Text bg="gray.100" rounded="md" w="100%" p={1}>
           {post.downVotesCount}

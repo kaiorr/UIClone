@@ -1,17 +1,19 @@
-import {
-  Button,
-  FormControl,
-  FormLabel,
-  Textarea,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  HStack,
-  useDisclosure }
+import
+  {
+    Button,
+    FormControl,
+    FormLabel,
+    Textarea,
+    Modal,
+    ModalBody,
+    ModalCloseButton,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    ModalOverlay,
+    HStack,
+    useDisclosure
+  }
 from '@chakra-ui/core'
 import React, { useState } from 'react'
 import db from '../database/firebase'
