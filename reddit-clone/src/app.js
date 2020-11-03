@@ -1,4 +1,4 @@
-import { Container, VStack } from '@chakra-ui/core'
+import { Container, Flex, VStack, Spinner } from '@chakra-ui/core'
 import React, { useEffect, useState } from 'react'
 import Navbar from './components/Navbar'
 import Post from './components/Posts'
@@ -6,6 +6,7 @@ import db from './database/firebase'
 
 const App = () => {
   const [posts, setPosts] = useState([]);
+  const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
 
@@ -18,7 +19,8 @@ const App = () => {
           ...doc.data(),
         }));
 
-        setPosts(data);
+        setPosts(data)
+        setLoading(false)
       });
   }, []);
 
@@ -40,6 +42,14 @@ const App = () => {
     })
   }, [])
 
+  if (isLoading) {
+    return (
+      <Flex minH="100vh" justifyContent="center" alignItems="center">
+        <Spinner />
+      </Flex>
+    );
+  }
+
   return (
     <>
       <Navbar />
@@ -51,7 +61,7 @@ const App = () => {
         </VStack>
       </Container>
     </>
-  )
-}
+  );
+};
 
 export default App;

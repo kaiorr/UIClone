@@ -13,55 +13,59 @@ import {
   HStack,
   useDisclosure }
 from '@chakra-ui/core'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import db from '../database/firebase'
 
 const AddNewPost = () => {
-  const {isOpen, onOpen, onClose} = useDisclosure()
-  const [title, setTitle] = useState('')
-  const [isSaving, setSaving] = useState(false)
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [title, setTitle] = useState("");
+  const [isSaving, setSaving] = useState(false);
 
   const handleSubmit = async () => {
-    const date = new Date()
+    setSaving(true);
 
-    await db.collection('posts').add({
+    const date = new Date();
+
+    await db.collection("posts").add({
       title,
       upVotesCount: 0,
       downVotesCount: 0,
       createdAt: date.toUTCString(),
-      updatedAt: date.toUTCString()
-    })
+      updatedAt: date.toUTCString(),
+    });
 
-    onClose()
-    setTitle("")
-  }
+    onClose();
+    setTitle("");
+    setSaving(false);
+  };
 
   return (
     <>
       <Button onClick={onOpen} colorScheme="blue">
-        Add new Post
+        Add new post
       </Button>
 
-      <Modal onClose={onClose} isOpen={isOpen} isCentered >
+      <Modal onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay>
           <ModalContent>
-            <ModalHeader>Add new Post</ModalHeader>
+            <ModalHeader>Add new post</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <FormControl id='post-title'>
+              <FormControl id="post-title">
+                <FormLabel>Post title</FormLabel>
                 <Textarea
-                  type='post-title'
+                  type="post-title"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
               </FormControl>
             </ModalBody>
             <ModalFooter>
-              <HStack spacing={4} >
-                <Button onClick={onClose} >Close</Button>
+              <HStack spacing={4}>
+                <Button onClick={onClose}>Close</Button>
                 <Button
                   onClick={handleSubmit}
-                  colorScheme='blue'
+                  colorScheme="blue"
                   disabled={!title.trim()}
                   isLoading={isSaving}
                 >
@@ -73,7 +77,7 @@ const AddNewPost = () => {
         </ModalOverlay>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default AddNewPost
+export default AddNewPost;
